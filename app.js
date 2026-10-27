@@ -1,5 +1,6 @@
 //Common JS
 const express = require("express");
+const postsRouter = require("./routers/posts");
 
 // SETUP
 const app = express();
@@ -14,6 +15,9 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.send("Server del mio blog");
 });
+
+/* Rotte per operazioni CRUD sull'entità posts*/
+app.use("/posts", postsRouter);
 
 //START SERVER
 app.listen(port, () => {
