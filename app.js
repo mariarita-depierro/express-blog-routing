@@ -3,6 +3,7 @@ const express = require("express");
 const postsRouter = require("./routers/posts");
 const logger = require("./middlewares/logger");
 const handlerErrors = require("./middlewares/handlerErrors");
+const notFound = require("./middlewares/notFound");
 
 // SETUP
 const app = express();
@@ -37,6 +38,9 @@ app.use("/posts", postsRouter);
 
 //middleware per la gestione degli errori
 app.use(handlerErrors);
+
+//middleware rotta not found
+app.use(notFound);
 
 //START SERVER
 app.listen(port, () => {
