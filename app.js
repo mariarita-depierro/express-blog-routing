@@ -2,6 +2,7 @@
 const express = require("express");
 const postsRouter = require("./routers/posts");
 const logger = require("./middlewares/logger");
+const handlerErrors = require("./middlewares/handlerErrors");
 
 // SETUP
 const app = express();
@@ -21,7 +22,7 @@ app.get("/", logger, (req, res) => {
   res.send("Server del mio blog");
 });
 
-app.get("/posts", (req, res) => {
+/* app.get("/posts", (req, res) => {
   const search = req.query.search;
   console.log(search);
 
@@ -29,10 +30,13 @@ app.get("/posts", (req, res) => {
     res.send(`Get filtered posts by ${search}`);
   }
   res.send("Get all posts from DB");
-});
+}); */
 
 /* Rotte per operazioni CRUD sull'entità posts*/
 app.use("/posts", postsRouter);
+
+//middleware per la gestione degli errori
+app.use(handlerErrors);
 
 //START SERVER
 app.listen(port, () => {

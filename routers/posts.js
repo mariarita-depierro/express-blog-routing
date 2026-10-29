@@ -9,6 +9,8 @@ router.use(logger);
 
 // Index (READ) - lista di posts
 router.get("/", (req, res) => {
+  console.log(lorem);
+
   res.send("Lista dei posts");
 });
 
