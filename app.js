@@ -15,7 +15,7 @@ app.use(logger);
 //ROUTING
 
 //home
-app.get("/", (req, res) => {
+app.get("/", logger, (req, res) => {
   res.send("Server del mio blog");
 });
 

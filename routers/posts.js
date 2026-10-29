@@ -1,7 +1,11 @@
 const express = require("express");
+const logger = require("../middlewares/logger");
 
 //Creazione del Router
 const router = express.Router();
+
+//Apply the middleware to this router
+router.use(logger);
 
 // Index (READ) - lista di posts
 router.get("/", (req, res) => {
