@@ -16,6 +16,16 @@ app.get("/", (req, res) => {
   res.send("Server del mio blog");
 });
 
+app.get("/posts", (req, res) => {
+  const search = req.query.search;
+  console.log(search);
+
+  if (search) {
+    res.send(`Get filtered posts by ${search}`);
+  }
+  res.send("Get all posts from DB");
+});
+
 /* Rotte per operazioni CRUD sull'entità posts*/
 app.use("/posts", postsRouter);
 
@@ -44,3 +54,8 @@ e via dicendo…
 Registrare il router dentro app.js con il prefisso posts/.
 
 Testare tuttle le rotte del router in Postman */
+
+/* Lavorando sulla stessa repo dello scorso esercizio andiamo a definire i seguenti middleware:
+Se viene generato un errore server side, un middleware si occuperà di rispondere con un messaggio e uno status appropriato.
+Se viene chiamato un endpoint inesistente, un middleware dovrà rispondere un messaggio e uno status appropriato.
+ */
