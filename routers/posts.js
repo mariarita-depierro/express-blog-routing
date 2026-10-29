@@ -21,6 +21,9 @@ router.get("/:id", (req, res) => {
 
 //Store (CREATE) - crea nuovo post
 router.post("/", (req, res) => {
+  const body = req.body;
+  console.log(body);
+
   res.send("Creazione nuovo post");
 });
 

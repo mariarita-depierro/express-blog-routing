@@ -10,7 +10,9 @@ const port = 3000;
 //MIDDLEWARE GLOBALI
 app.use(express.static("public")); //Static Assets
 
-app.use(logger);
+/* app.use(logger); */
+
+app.use(express.json()); // permette l'invio di dati JSON
 
 //ROUTING
 
