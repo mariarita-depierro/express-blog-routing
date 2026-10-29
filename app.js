@@ -1,13 +1,16 @@
 //Common JS
 const express = require("express");
 const postsRouter = require("./routers/posts");
+const logger = require("./middlewares/logger");
 
 // SETUP
 const app = express();
 const port = 3000;
 
-//Static Assets
-app.use(express.static("public"));
+//MIDDLEWARE GLOBALI
+app.use(express.static("public")); //Static Assets
+
+app.use(logger);
 
 //ROUTING
 
