@@ -1,5 +1,6 @@
 const express = require("express");
 const logger = require("../middlewares/logger");
+const connection = require("../data/db");
 
 //Creazione del Router
 const router = express.Router();
