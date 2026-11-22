@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 
 //setup connessione DB
 const connection = mysql.createConnection({
-  host: "loacalhost",
+  host: process.env.DB_HOST,
   user: "root",
   password: "root",
   database: "blog",
