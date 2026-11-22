@@ -21,10 +21,24 @@ router.get("/", (req, res, next) => {
 });
 
 //Show (READ) - singolo post
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
   const id = req.params.id;
 
-  res.send(`Post from DB with id: ${id}`);
+  const sql = `SELECT * FROM posts WHERE id=?`;
+
+  // esecuzione query
+  connection.query(sql, [id], (err, results) => {
+    if (err) return next(err);
+
+    if (results.length === 0) {
+      res.status(404).json({
+        error: "Post not found",
+      });
+      return;
+    }
+
+    res.json(results[0]);
+  });
 });
 
 //Store (CREATE) - crea nuovo post
