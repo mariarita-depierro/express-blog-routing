@@ -7,7 +7,7 @@ const notFound = require("./middlewares/notFound");
 
 // SETUP
 const app = express();
-const port = 3000;
+const port = process.env.SERVER_PORT || 3000;
 
 //MIDDLEWARE GLOBALI
 app.use(express.static("public")); //Static Assets

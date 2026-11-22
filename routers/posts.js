@@ -10,19 +10,14 @@ router.use(logger);
 
 // Index (READ) - lista di posts
 router.get("/", (req, res, next) => {
-  /* Version 1
-   console.log(lorem); */
+  // preparazione query
+  const sql = "SELECT * FROM posts";
 
-  try {
-    const error = true; //query al DB che ha ritornato un errore
-    if (error) {
-      throw new Error("Error with DB query! Please try later");
-    }
-
-    res.send("Lista dei posts");
-  } catch (error) {
-    next(error);
-  }
+  // esecuzione query
+  connection.query(sql, (err, results) => {
+    if (err) return next(err);
+    res.json(results);
+  });
 });
 
 //Show (READ) - singolo post
