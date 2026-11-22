@@ -62,9 +62,24 @@ router.patch("/:id", (req, res) => {
 });
 
 //Destroy (DELETE) - eliminazione del post
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req, res, next) => {
   const id = req.params.id;
-  res.send(`Post with id: ${id} deleted`);
+
+  const sql = `DELETE FROM posts WHERE id=?`;
+
+  // esecuzione query
+  connection.query(sql, [id], (err, results) => {
+    if (err) return next(err);
+
+    if (results.affectedRows === 0) {
+      res.status(404).json({
+        error: "Post not found",
+      });
+      return;
+    }
+
+    res.sendStatus(204);
+  });
 });
 
 module.exports = router;
