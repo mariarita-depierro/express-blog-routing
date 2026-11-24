@@ -26,6 +26,17 @@ router.get("/:id", (req, res, next) => {
 
   const sql = `SELECT * FROM posts WHERE id=?`;
 
+  const sqlPostsWithTags = `
+  SELECT
+    posts.id AS post_id,
+    posts.title,
+    GROUP_CONCAT(tags.label SEPARATOR ', ') AS tags
+FROM posts
+LEFT JOIN post_tag ON post_tag.post_id = posts.id
+LEFT JOIN tags ON post_tag.tag_id = tags.id
+WHERE posts.id = ?
+GROUP BY posts.id, posts.title; `;
+
   // esecuzione query
   connection.query(sql, [id], (err, results) => {
     if (err) return next(err);
@@ -37,7 +48,15 @@ router.get("/:id", (req, res, next) => {
       return;
     }
 
-    res.json(results[0]);
+    const post = results[0];
+
+    connection.query(sqlPostsWithTags, [id], (err, resPostsWithTags) => {
+      if (err) return next(err);
+
+      post.posts = resPostsWithTags;
+
+      res.json(post);
+    });
   });
 });
 
